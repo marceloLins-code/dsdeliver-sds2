@@ -41,7 +41,7 @@ public class OrderController {
 	
 	@PutMapping("/{id}/delivered")
 	public ResponseEntity<OrderDTO> setDeliverd(@PathVariable long id){
-		OrderDTO dto = service.setDelivered(id);
+		OrderDTO dto = service.setDelivered(id); 
 		return ResponseEntity.ok().body(dto);
 	}
 	
