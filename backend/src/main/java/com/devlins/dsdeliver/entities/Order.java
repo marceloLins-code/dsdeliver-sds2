@@ -29,6 +29,7 @@ public class Order implements Serializable {
 	private Instant moment;
 	private OrderStatus status;
 	
+	
 	@ManyToMany
 	@JoinTable(name = "tb_order_product",
 	joinColumns = @JoinColumn(name = "order_id"),
@@ -95,9 +96,42 @@ public class Order implements Serializable {
 	public void setStatus(OrderStatus status) {
 		this.status = status;
 	}
+	
+	public Double getTotal() {
+		double sum = 0.0;
+		for (Product p : products) {
+			sum += p.getPriece();
+		}
+		return sum;
+	}
 
 	public Set<Product> getProducts() {
 		return products;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Order other = (Order) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 	
